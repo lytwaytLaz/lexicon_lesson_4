@@ -10,17 +10,17 @@ interface TheInterface {
     void TheMethod();
 }
 
-class TheImplementor_1 implements TheInterface {
+class TheImp_1 implements TheInterface {
     @Override
     public void TheMethod() {
-        System.out.println("The method from TheImplementor_1");
+        System.out.println("Da metoad fromm TheImp_1");
     }
 }
 
-class TheImplementor_2 implements TheInterface {
+class TheImp_2 implements TheInterface {
     @Override
     public void TheMethod() {
-        System.out.println("The method from TheImplementor_2");
+        System.out.println("Da metoad fromm TheImp_2");
     }
 }
 
@@ -30,34 +30,21 @@ class TheConstructor {
         this.iFace = iFace;
     }
 
-
+    public void run() {
+        iFace.TheMethod();
+    }
 }
 
 public class MainInterface{
     public static void main(String[] args) {
-        if (args.length != 2) {
-            System.err.println("usage: java TheConstructor <classname> <methodname>");
+        if (args.length != 1) {
+            System.err.println("usage: java TheConstructor <classname>");
             System.exit(1);
         }
-
         try {
-            Class nameClass =   System.class.forName(args[0]);
-            Class[] myClasses = nameClass.getInterfaces();
-
-            System.out.println(myClasses); //Uppgiften egentligen klar här eller?
-//            Method [] nameMethods_imp1;
-//
-//            String methodArrayName = new String("nameMethods");
-//            public Method MethodArrays {
-//                int i = 0;
-//                if (i == myClasses.length - 1) return;
-//                else {
-//                    methodArrayName = methodArrayName + "_" + (i + 1);
-//                    Method[] nameMethods??? = myClasses[i].getDeclaredMethods();
-//            }
-//            }
-//            TheConstructor whatever = new TheConstructor();
-//            Method method = doIt.getClass().getMethod(args[1]);
+            TheInterface t = (TheInterface) Class.forName(args[0]).newInstance();
+            TheConstructor c = new TheConstructor(t);
+            c.run();
         }catch (Exception e) {
             e.printStackTrace();
         }
